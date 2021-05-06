@@ -8,14 +8,32 @@ import { useState } from 'react';
 function MyApp({ Component, pageProps }) {
 	const [episodeList, setEpisodeList] = useState([]);
 	const [currentEpisode, setCurrentEpisodeIndex] = useState(0);
+	const [isPlaying, setIsplaying] = useState<boolean>(false);
 
-	function play(episode) {
+	function togglePlay() {
+		setIsplaying(!isPlaying);
+	}
+
+	function setPlayState(state: boolean) {
+		setIsplaying(state);
+	}
+	function play(episode: any) {
 		setEpisodeList([episode]);
 		setCurrentEpisodeIndex(0);
+		setIsplaying(true);
 	}
 
 	return (
-		<PlayerContext.Provider value={{ episodeList, currentEpisode, play }}>
+		<PlayerContext.Provider
+			value={{
+				episodeList,
+				currentEpisode,
+				play,
+				isPlaying,
+				togglePlay,
+				setPlayState,
+			}}
+		>
 			<div className={styles.wrapper}>
 				<main>
 					<Header />
